@@ -1,0 +1,16 @@
+<div class="mb-3">
+  <%= link_to "← Back to Reviews", reviews_path, class: "btn btn-outline-secondary" %>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Review #<%= @review.id %></h1>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><strong>User:</strong> <%= link_to @review.user.name, user_path(@review.user) %></li>
+      <li class="list-group-item"><strong>Event:</strong> <%= link_to @review.event.name, event_path(@review.event) %></li>
+      <li class="list-group-item"><strong>Rating:</strong> ⭐ <%= @review.rating %>/5</li>
+      <li class="list-group-item"><strong>Comment:</strong> <%= @review.comment %></li>
+      <li class="list-group-item"><strong>Posted on:</strong> <%= @review.created_at.strftime("%d %B %Y") %></li>
+    </ul>
+  </div>
+</div>

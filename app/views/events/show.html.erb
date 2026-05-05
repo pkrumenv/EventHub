@@ -1,0 +1,49 @@
+<div class="mb-3">
+  <%= link_to "← Back to Events", events_path, class: "btn btn-outline-secondary" %>
+</div>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-start">
+      <h1 class="card-title"><%= @event.name %></h1>
+      <% badge = { "draft" => "secondary", "published" => "success", "finished" => "dark" } %>
+      <span class="badge bg-<%= badge[@event.status] %> fs-6"><%= @event.status.capitalize %></span>
+    </div>
+    <p class="text-muted"><%= @event.description %></p>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><strong>Date:</strong> <%= @event.date.strftime("%d %B %Y, %H:%M") %></li>
+      <li class="list-group-item"><strong>Location:</strong> <%= @event.location %></li>
+      <li class="list-group-item"><strong>Capacity:</strong> <%= @event.capacity %></li>
+      <li class="list-group-item"><strong>Organizer:</strong> <%= link_to @event.user.name, user_path(@event.user) %></li>
+      <li class="list-group-item"><strong>Categories:</strong> <%= @event.categories.map(&:name).join(", ") %></li>
+    </ul>
+  </div>
+</div>
+
+<h4>Registrations (<%= @event.registrations.count %>)</h4>
+<table class="table table-sm mb-4">
+  <thead class="table-light">
+    <tr><th>User</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    <% @event.registrations.each do |r| %>
+      <tr>
+        <td><%= link_to r.user.name, user_path(r.user) %></td>
+        <td><span class="badge bg-<%= r.confirmed? ? 'success' : r.pending? ? 'warning' : 'danger' %>"><%= r.status.capitalize %></span></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h4>Reviews (<%= @event.reviews.count %>)</h4>
+<% @event.reviews.each do |review| %>
+  <div class="card mb-2">
+    <div class="card-body">
+      <div class="d-flex justify-content-between">
+        <strong><%= link_to review.user.name, user_path(review.user) %></strong>
+        <span>⭐ <%= review.rating %>/5</span>
+      </div>
+      <p class="mb-0 text-muted"><%= review.comment %></p>
+    </div>
+  </div>
+<% end %>

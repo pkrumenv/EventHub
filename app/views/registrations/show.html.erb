@@ -1,0 +1,20 @@
+<div class="mb-3">
+  <%= link_to "← Back to Registrations", registrations_path, class: "btn btn-outline-secondary" %>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title">Registration #<%= @registration.id %></h1>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><strong>User:</strong> <%= link_to @registration.user.name, user_path(@registration.user) %></li>
+      <li class="list-group-item"><strong>Event:</strong> <%= link_to @registration.event.name, event_path(@registration.event) %></li>
+      <li class="list-group-item">
+        <strong>Status:</strong>
+        <span class="badge bg-<%= @registration.confirmed? ? 'success' : @registration.pending? ? 'warning' : 'danger' %>">
+          <%= @registration.status.capitalize %>
+        </span>
+      </li>
+      <li class="list-group-item"><strong>Registered on:</strong> <%= @registration.created_at.strftime("%d %B %Y") %></li>
+    </ul>
+  </div>
+</div>

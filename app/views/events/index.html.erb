@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Events</h1>
+</div>
+
+<table class="table table-striped table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Location</th>
+      <th>Capacity</th>
+      <th>Status</th>
+      <th>Organizer</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= event.name %></td>
+        <td><%= event.date.strftime("%d %b %Y") %></td>
+        <td><%= event.location %></td>
+        <td><%= event.capacity %></td>
+        <td>
+          <% badge = { "draft" => "secondary", "published" => "success", "finished" => "dark" } %>
+          <span class="badge bg-<%= badge[event.status] %>"><%= event.status.capitalize %></span>
+        </td>
+        <td><%= event.user.name %></td>
+        <td><%= link_to "View", event_path(event), class: "btn btn-sm btn-outline-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

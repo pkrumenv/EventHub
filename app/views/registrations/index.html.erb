@@ -1,0 +1,22 @@
+<h1 class="mb-4">Registrations</h1>
+
+<table class="table table-striped table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>User</th>
+      <th>Event</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @registrations.each do |r| %>
+      <tr>
+        <td><%= link_to r.user.name, user_path(r.user) %></td>
+        <td><%= link_to r.event.name, event_path(r.event) %></td>
+        <td><span class="badge bg-<%= r.confirmed? ? 'success' : r.pending? ? 'warning' : 'danger' %>"><%= r.status.capitalize %></span></td>
+        <td><%= link_to "View", registration_path(r), class: "btn btn-sm btn-outline-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
