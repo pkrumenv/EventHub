@@ -1,0 +1,43 @@
+<div class="mb-3">
+  <%= link_to "← Back to Users", users_path, class: "btn btn-outline-secondary" %>
+</div>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h1><%= @user.name %></h1>
+    <p class="text-muted"><%= @user.email %></p>
+  </div>
+</div>
+
+<h4>Events Organized (<%= @user.events.count %>)</h4>
+<table class="table table-sm mb-4">
+  <thead class="table-light">
+    <tr><th>Name</th><th>Date</th><th>Status</th><th></th></tr>
+  </thead>
+  <tbody>
+    <% @user.events.each do |event| %>
+      <% badge = { "draft" => "secondary", "published" => "success", "finished" => "dark" } %>
+      <tr>
+        <td><%= event.name %></td>
+        <td><%= event.date.strftime("%d %b %Y") %></td>
+        <td><span class="badge bg-<%= badge[event.status] %>"><%= event.status.capitalize %></span></td>
+        <td><%= link_to "View", event_path(event), class: "btn btn-sm btn-outline-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h4>Registrations (<%= @user.registrations.count %>)</h4>
+<table class="table table-sm">
+  <thead class="table-light">
+    <tr><th>Event</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    <% @user.registrations.each do |r| %>
+      <tr>
+        <td><%= link_to r.event.name, event_path(r.event) %></td>
+        <td><span class="badge bg-<%= r.confirmed? ? 'success' : r.pending? ? 'warning' : 'danger' %>"><%= r.status.capitalize %></span></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
