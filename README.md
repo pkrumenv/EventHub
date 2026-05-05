@@ -24,7 +24,7 @@ EventHub is a Ruby on Rails application for managing events, registrations, and 
 
 ```bash
 git clone <repository-url>
-cd EventHub2
+cd EventHub
 ```
 
 ### 2. Install Ruby dependencies
